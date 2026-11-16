@@ -5431,6 +5431,10 @@ builtin_type_p (const_tree type)
 void
 init_builtins ()
 {
+  // Tenstorrent: prevent JIT compilation time regressions in lto1.
+  if (!TARGET_VECTOR)
+    return;
+
   if (in_lto_p)
     /* "pragma vector" will register type during the process. */
     handle_pragma_vector ();
